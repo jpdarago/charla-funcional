@@ -1,4 +1,4 @@
-charla-funcional
-================
+Estructuras puramente funcionales
+=================================
 
-Slides de la charla de programación funcional
+Slides de la charla de estructuras puramente funcionales.
