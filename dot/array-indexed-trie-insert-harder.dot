@@ -1,0 +1,36 @@
+digraph hamtvec {
+    root [
+        label = "4 | <f0>"
+        shape = "record"
+        color =  "red"
+    ];
+    node0 [
+        label = "<f0> | <f1> | | "
+        shape = "record"
+    ];
+    node1 [
+        label = "4 | 5 | 3 | 6" 
+        shape = "record"
+    ];
+    rootcopy [
+        label = "5 | <f0>"
+        shape = "record"
+        color = "red"
+    ];
+    node0copy [
+        label = "<f0> | <f1> | |"
+        shape = "record"
+        color = "red"
+    ];
+    node2copy [
+        label = "7 | | | "
+        shape = "record"
+        color = "red"
+    ]
+    root:f0 -> node0;
+    node0:f0 -> node1;
+
+    rootcopy:f0 -> node0copy;
+    node0copy:f0 -> node1;
+    node0copy:f1 -> node2copy;
+}

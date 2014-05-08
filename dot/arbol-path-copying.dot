@@ -1,0 +1,26 @@
+digraph arbol {
+    rankdir= TB; 
+
+    5;6;7;8;
+    node [shape = circle, fillcolor = red, style = filled, label=""]
+    rootcopy; leaf1copy;
+
+    node [shape = circle, fillcolor = red, style = filled, label="9"]
+    copy9;
+
+    node [shape = circle, label = "", fillcolor=white, style=filled] 
+    root; leaf1; leaf2;
+
+    root -> leaf1;
+    root ->leaf2;
+    leaf1 -> 5;
+    leaf2 -> 6;
+    leaf2 -> 7;
+    leaf2 -> 8;
+
+    rootcopy -> leaf1copy;
+    rootcopy -> leaf2;
+    leaf1copy -> 6;
+    leaf1copy -> 7;
+    leaf1copy -> copy9;
+}

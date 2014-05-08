@@ -1,0 +1,26 @@
+digraph patricia {
+    root [
+        label = "bit = 1 | prefix = 0 | <f0> | <f1>"
+        shape = "record"
+    ]
+    node0 [
+        label = "key = 1 | val = x"
+        shape = "record"
+    ]
+    node1 [
+        label = "bit = 4 | prefix = 1 | <f0> | <f1>"
+        shape = "record"
+    ]
+    node2 [
+        label = "key = 1 | val = x"
+        shape = "record"
+    ]
+    node3 [
+        label = "key = 5 | val = z"
+        shape = "record"
+    ]
+    root:f0 -> node0;
+    root:f1 -> node1;
+    node1:f0 -> node2;
+    node1:f1 -> node3;
+}

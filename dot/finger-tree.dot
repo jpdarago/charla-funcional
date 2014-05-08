@@ -1,0 +1,48 @@
+digraph fingertree {
+    rankdir = "LR"
+    root [
+        label = "<left> | <tree> | <right>"
+        shape = "record"
+    ]
+    leftspine [
+        label = "a | b | c"
+        shape = "record"
+    ]
+    rightspine [
+        label = "i | j"
+        shape = "record"
+    ]
+    innertree [
+        label = "<left> | <tree> | <right>"
+        shape = "record"
+    ]
+    innerleftinterm [
+        label = "<f0>"
+        shape = "record"
+    ]
+    innerleft [
+        label = "d | e"
+        shape = "record"
+    ]
+    innerrightinterm [
+        label = "<f0>"
+        shape = "record"
+    ]
+    innerright [
+        label = "f | g | h"
+        shape = "record"
+    ]
+    nil [
+        fillcolor = "black"
+        style = "filled"
+        shape = "point"
+    ]
+    root:left -> leftspine;
+    root:right -> rightspine;
+    root:tree -> innertree;
+    innertree:left -> innerleftinterm;
+    innertree:right -> innerrightinterm;
+    innerleftinterm:f0 -> innerleft;
+    innerrightinterm:f0 -> innerright;
+    innertree:tree -> nil;
+}

@@ -1,0 +1,12 @@
+digraph lista {
+    rankdir = LR;
+    node [shape = point, color=black]; null;
+    node [shape = circle, fillcolor=red, style=filled]; a; b; c;
+    node [shape = circle, fillcolor=white, style=filled] x; y; z;
+    x -> null; 
+    y -> x;
+    z -> y;
+    b -> x;
+    a -> b;
+    c -> y;
+}

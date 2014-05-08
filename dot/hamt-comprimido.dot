@@ -1,0 +1,32 @@
+digraph hamtcomprimido {
+   rankdir = "LR"
+   root [
+        label = "4 | <f0>"
+        shape = "record"
+   ]
+   node0 [
+        label = "0011 | <f0> | <f1>"
+        shape = "record"
+   ]
+   node1 [
+        label = "0001 | <f0>"
+        shape = "record"
+   ]
+   node2 [
+        label = "key = 1 | val = 6"
+        shape = "record"
+   ]
+   node3 [
+        label = "0001 | <f0>"
+        shape = "record"
+   ]
+   node4 [
+        label = "key = 5 | val = 7"
+        shape = "record"
+   ]
+   root:f0 -> node0;
+   node0:f0 -> node1;
+   node0:f1 -> node3;
+   node1:f0 -> node2;
+   node3:f0 -> node4;
+}
