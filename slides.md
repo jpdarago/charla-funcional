@@ -345,6 +345,46 @@ union t Nil       = t
 
 ## Finger Trees - Ejemplo código
 
+~~~haskell
+data Digit a = One a | Two a a | Three a a a | Four a a a a
+
+data FingerTree v a = Empty | Single a
+	| Deep v (Digit a) (FingerTree v (Node v a)) (Digit a)
+
+instance (Monoid v) => Measured v (Node v a) where
+    measure (Node2 v _ _)    =  v
+    measure (Node3 v _ _ _)  =  v
+~~~
+
+## Finger Trees - Ejemplo inserción
+
+~~~haskell
+mV :: (M v a) => v -> FT v a -> v
+mV v Empty = v
+mV v t = v `mappend` measure t
+
+consDigit :: a -> Digit a -> Digit a
+consDigit a (One b) = Two a b
+consDigit a (Two b c) = Three a b c
+consDigit a (Three b c d) = Four a b c d
+
+deep ::  (M v a) => D a -> FT v (Node v a) -> D a -> FT v a
+
+deep pr m sf = Deep ((measure pr `mV` m) `><` measure sf) 
+                    pr m sf
+
+(<|) :: (M v a) => a -> FT v a -> FT v a
+a <| Empty      =  Single a
+a <| Single b       =  deep (One a) Empty (One b)
+a <| Deep _ (Four b c d e) m sf = m `seq`
+    deep (Two a b) (node3 c d e <| m) sf
+a <| Deep _ pr m sf =  deep (consDigit a pr) m sf
+~~~
+
+* Abreviaturas por tamaño de slide.
+
+## Purely functional real time deques with catenation
+
 ## Performance - Siempre tener en cuenta
 
 Evento                Latencia
@@ -359,10 +399,39 @@ HDD                   4ms
 
 Tabla: Tiempos de acceso ("Systems Performance: Enterprise and the Cloud").
 
-## Purely functional real time deques with catenation
-## 
 # Usos
 ## Multithreading - Consideraciones
-## Software Transactional Memory (STM)
+
+* Multiples _threads_ + estado global = desastre.
+* Necesario para aprovechar todos los cores.
+* Dos opciones: O meter _locks_ o no tener estado global.
+* Los _locks_ son muy molestos de usar.
+* Los _locks_ son muy pesados.
+    * Las variables globales tienen que pasar por las cachés.
+    * Invalidan cachés de otros cores.
+
+## Ejemplo arquitectura
+
+![](images/system-arch.eps)
+
+## Estructuras puramente funcionales
+
+* ¡Se pueden compartir libremente!
+* Resultados intermedios se pueden juntar rápido.
+    * Por eso el interés en _split_ y _concat_.
+* Se puede usar con _software transactional memory_
+    * Mantener consistencia de los accesos.
+    * Manera en que Clojure encara el problema.
+    * Usando MVCC + Estructuras de datos persistentes se puede hacer rápido.
+* No esta claro que el _overhead_ sea lo suficientemente bajo todavía.
+
 ## Planar point location using Persistent Search Trees
+
+* Por Sarnak y Tarjan.
+* _Problema_: Dados polígonos formados por la intersección de $n$ líneas, 
+responder en que polígono esta una serie de puntos...rápido.
+* Usar estructuras de datos persistentes.
+    * _Parcialmente persistentes: Red Black Trees modificados.
+    * Se puede hacer con RBT funcionales pero con más costo en memoria.
+
 ## ClojureScript + Om + ReactJS
