@@ -1,5 +1,4 @@
 digraph fingertree {
-    rankdir = "LR"
     root [
         label = "<left> | <tree> | <right>"
         shape = "record"
@@ -17,7 +16,7 @@ digraph fingertree {
         shape = "record"
     ]
     innerleftinterm [
-        label = "<f0>"
+        label = "Node2 <f0>"
         shape = "record"
     ]
     innerleft [
@@ -25,7 +24,7 @@ digraph fingertree {
         shape = "record"
     ]
     innerrightinterm [
-        label = "<f0>"
+        label = "Node3 <f0>"
         shape = "record"
     ]
     innerright [
