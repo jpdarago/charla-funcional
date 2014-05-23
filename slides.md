@@ -32,6 +32,7 @@
     * Estructuras del tipo _pointer-machine_ (_structs_ de C) pueden hacerse parciales
     con O(1) amortizado overhead y O(1) espacio por cambio.
     * Cotas parecidas para persistencia total.
+* Para mas información: <http://courses.csail.mit.edu/6.851/spring12/lectures>
 
 ## Conceptos
 
@@ -253,6 +254,11 @@ tail (HM lenf (x:ff) state lenr r) =
     * Usado en _catenable deques_.
     * Base en parte de los _finger trees_.
 
+## Para saber mas
+
+* Chris Okasaki, _Pure functional data structures_, Cambridge Press, 1998.
+* H. Abelson, G. J. Sussman, _Structure and Interpretation of Computer Programs_, 2nd Edition, MIT press, 1996.
+
 # Estructuras de datos
 ## Introducción
 
@@ -334,6 +340,13 @@ public Object[] arrayFor(int i){
     throw new IndexOutOfBoundsException();
 }
 ~~~
+
+## Link para entender esta version
+
+* <http://hypirion.com/musings/understanding-persistent-vector-pt-1>
+* <http://infoscience.epfl.ch/record/64398/files/idealhashtrees.pdf>
+* Source de Clojure: <https://github.com/clojure/clojure/blob/master/src/jvm/clojure/lang/PersistentVector.java>
+
 ## Otra implementación de Vectores - RRB Trees
 
 * Agregar una operación interesante: _join_, _insertat_, _split_ en $O(\log n)$.
@@ -346,6 +359,10 @@ public Object[] arrayFor(int i){
 * Invariante para concatenación: nodos tienen $m$ o $m-1$.
     * Mergear nodos _bottom up_.
 * No queda claro si son una mejora (caso _index_ muy común).
+
+## Paper
+
+* <http://infoscience.epfl.ch/record/169879/files/RMTrees.pdf>
 
 ## Hash Array Mapped Trie - Maps de Clojure
 
@@ -390,6 +407,11 @@ public Object find(int shift, int hash, Object key, Object notF){
 }
 ~~~
 
+## Links
+
+* Mismo paper de Phil Bagwell
+* <http://blog.higher-order.net/2009/09/08/understanding-clojures-persistenthashmap-deftwice.html>
+
 ## IntMap - Data.IntMap - Patricia trees
 
 * Por Chris Okasaki y Andy Gill.
@@ -420,8 +442,9 @@ lookup :: IntMap a -> Nat -> Maybe a
 
 lookup n Nil = Nothing
 
-lookup n (Tip n val) = Just val
-lookup n (Tip _ _) = Nothing
+lookup n (Tip m val)
+    | n == m = Just val
+    | otherwise = Nothing
 
 lookup n (Bin prefix bit t0 t1)
     | nomatch n prefix bit = Nothing
@@ -476,6 +499,11 @@ union t (Tip k x) = insertWith (\_ y -> y) k x t  -- right bias
 union Nil t       = t
 union t Nil       = t
 ~~~
+
+## Links
+
+* <http://ittc.ku.edu/~andygill/papers/IntMap98.pdf>
+* <http://hackage.haskell.org/package/containers-0.2.0.1/docs/src/Data-IntMap.html>
 
 ## Finger Trees
 
@@ -575,6 +603,11 @@ head x = case view x of Cons a _ -> a
 tail x = case view x of Cons _ xx -> xx
 ~~~
 
+## Links
+
+* <http://www.soi.city.ac.uk/~ross/papers/FingerTree.pdf>
+* <http://hackage.haskell.org/package/containers-0.2.0.1/docs/src/Data-Sequence.html>
+
 ## Performance - Siempre tener en cuenta
 
 Evento                Latencia
@@ -602,7 +635,7 @@ Tabla de "Systems Performance: Enterprise and the Cloud"
 
 ## Ejemplo arquitectura
 
-![](images/system-arch.eps)
+![Tabla de "Is parallel programming hard..."](images/system-arch.eps)
 
 ## Estructuras puramente funcionales
 
@@ -617,7 +650,7 @@ Tabla de "Systems Performance: Enterprise and the Cloud"
 
 ## Planar point location using Persistent Search Trees
 
-* Por Sarnak y Tarjan.
+* Por Sarnak y Tarjan: <http://www.math.tau.ac.il/~michas/sarnak-tarjan.pdf>
 * _Problema_: Dados polígonos formados por la intersección de $n$ líneas, 
 responder en que polígono esta una serie de puntos...rápido.
 * Usar estructuras de datos persistentes.
@@ -663,6 +696,24 @@ var CommentList = React.createClass({
     }
 });
 ~~~
+
+## ReactJS - shouldComponentUpdate
+
+    By default, shouldComponentUpdate always returns true 
+    to prevent subtle  bugs when state is mutated in place, 
+    but if you are careful to always treat state as immutable 
+    and to read only from props and state in render() then 
+    you can override shouldComponentUpdate with an implementation 
+    that compares the old props and state to their replacements.
+
+    If performance is a bottleneck, especially with dozens or 
+    hundreds of components, use shouldComponentUpdate to speed up 
+    your app.
+
+## Links
+
+* <http://swannodette.github.io/2013/12/17/the-future-of-javascript-mvcs>
+* <http://2013.jsconf.eu/speakers/pete-hunt-react-rethinking-best-practices.html>
 
 ## Eso es todo
 

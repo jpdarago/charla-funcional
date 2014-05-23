@@ -16,7 +16,7 @@ digraph hamtcomprimido {
         shape = "record"
    ]
    node3 [
-        label = "key = 4 (0100) | value = 6"
+        label = "key = 2 (0010) | value = 6"
         shape = "record"
    ]
    node4 [
